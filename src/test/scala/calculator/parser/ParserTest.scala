@@ -43,4 +43,16 @@ class CalcParserTests extends FunSpec with LangParseMatchers[AST] {
     }
 
   }
+  
+    describe("Subtraction") {
+
+    it("can subtract two numbers") {
+      program("5-3") should parseAs ( 5 |-| 3)
+    }
+    
+    it("can be chained (and is left-associative)") {
+      program("100 - 2 - 5") should parseAs ( (100 |-| 2) |-| 5)
+    }
+  }
+  
 }

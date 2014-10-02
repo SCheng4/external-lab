@@ -40,4 +40,20 @@ class NumSemanticsTests extends FunSpec
 
   }
 
+    describe("Subtraction") {
+
+    it("can add two numbers") {
+      program("5-3") should compute (2)
+    }
+
+    it("can be chained (and is left-associative)") {
+      program("100 - 2 - 1") should compute (97)
+    }
+
+    it("can handle negative numbers") {
+      program("100 - -1") should compute (101)
+    }
+
+  }
+  
 }
