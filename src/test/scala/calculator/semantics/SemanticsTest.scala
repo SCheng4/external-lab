@@ -87,4 +87,24 @@ class NumSemanticsTests extends FunSpec
     }
 
   }
+    
+    describe("Precedence") {
+
+    it("multiply before add") {
+      program("2 + 4 * 8") should compute (34)
+    }
+
+    it("can handle multiple multiplies/divisions before adding/subtracting") {
+      program("2 + 4 * 8 / 2 - 3") should compute (15)
+    }
+  }
+    
+    describe("Parens") {
+      it("parses a single paren") {
+      program("(2)") should compute (2)
+    }
+      it("uses parens to override precedence") {
+      program("5 * (1 + 2)") should compute (15)
+    }
+  }
 }

@@ -86,4 +86,13 @@ class CalcParserTests extends FunSpec with LangParseMatchers[AST] {
       program("2 + 4 * 8 / 2 - 3") should parseAs ( (2 |+| ((4 |*| 8) |/| 2) ) |-| 3)
     }
   }
+    
+    describe("Parens") {
+      it("parses a single paren") {
+      program("(2)") should parseAs (2)
+    }
+      it("uses parens to override precedence") {
+      program("5 * (1 + 2)") should parseAs ( 5 |*| (1 |+| 2))
+    }
+  }
 }
