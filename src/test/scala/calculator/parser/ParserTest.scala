@@ -54,5 +54,36 @@ class CalcParserTests extends FunSpec with LangParseMatchers[AST] {
       program("100 - 2 - 5") should parseAs ( (100 |-| 2) |-| 5)
     }
   }
-  
+    
+    describe("Multiplication") {
+
+    it("can multiply two numbers") {
+      program("5*3") should parseAs ( 5 |*| 3)
+    }
+    
+    it("can be chained (and is left-associative)") {
+      program("2 * 3 * 4") should parseAs ( (2 |*| 3) |*| 4)
+    }
+  }
+    
+    describe("Division") {
+
+    it("can divide two numbers") {
+      program("8/4") should parseAs ( 8 |/| 4)
+    }
+    
+    it("can be chained (and is left-associative)") {
+      program("16 / 4 / 2") should parseAs ( (16 |/| 4) |/| 2)
+    }
+  }
+    
+    describe("Precedence") {
+      it("multiply before add") {
+      program("2 + 4 * 8") should parseAs ( 2 |+| (4 |*| 8))
+    }
+      
+      it("can handle multiple multiplies/divisions before adding/subtracting") {
+      program("2 + 4 * 8 / 2 - 3") should parseAs ( (2 |+| ((4 |*| 8) |/| 2) ) |-| 3)
+    }
+  }
 }
